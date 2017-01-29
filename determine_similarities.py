@@ -16,14 +16,14 @@ def build_similarity_matrix(video):
     sim_matrix = numpy.zeros((frame_count, frame_count))
 
     # Go through each of the frames, and find their similarity with others
-    for x in range(0, frame_count-1):
-        print "Analyzing frame ", x+1, "/", frame_count, " ..."
+    for x in range(0, frame_count - 1):
+        print "Analyzing frame ", x + 1, "/", frame_count, " ..."
 
-        video_1.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, x+1)
+        video_1.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, x + 1)
         (x_success, frame_x) = video_1.read()
 
-        for y in range(0, frame_count-1):
-            video_2.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, y+1)
+        for y in range(0, frame_count - 1):
+            video_2.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, y + 1)
             (y_success, frame_y) = video_2.read()
 
             sim_matrix[x, y] = compare.euclidean_norm(frame_x, frame_y)
