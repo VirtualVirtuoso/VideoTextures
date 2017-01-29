@@ -56,6 +56,7 @@ class ButtonGrid(Tkinter.Tk):
         # Set some data points
         self.matrix = data_matrix
         (self.no_rows, self.no_cols) = data_matrix.shape
+        self.no_cols -= 1
 
         Tkinter.Tk.__init__(self)
         self.title(title)
