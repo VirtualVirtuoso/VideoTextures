@@ -3,14 +3,16 @@ import numpy
 import util.video.keyframes as keyframes
 import util.frame.compare as compare
 
-skipFrames = 5
+frameCount = 0
+skipFrames = 1
+inputPath = "data/shorter.mov"
 
 # This is the first pre-processing step we use to determine the similarities between
 # each frame of the video. We then store this in a matrix, which we can then turn into
 # probabilities and threshold in the next step.
 def main():
     print "Determining similarities between frames..."
-    build_similarity_matrix("data/jurassic.mov")
+    build_similarity_matrix(inputPath)
 
 def build_similarity_matrix(video):
 
@@ -19,19 +21,22 @@ def build_similarity_matrix(video):
     video_2 = cv2.VideoCapture(video)
 
     # We then determine the number of frames, so we can iterate to that point
-    frame_count = keyframes.count_frames(video)
+    global frameCount
+    frameCount = keyframes.count_frames(video)
+
+    print "We have ", frameCount, " frames to process. Skipping ", skipFrames, " at a time..."
 
     # Instantiate the matrix in which we will determine the similarities
-    sim_matrix = numpy.zeros((frame_count / skipFrames, frame_count / skipFrames))
+    sim_matrix = numpy.zeros((frameCount / skipFrames, frameCount / skipFrames))
 
     # Go through each of the frames, and find their similarity with others
-    for x in range(0, frame_count - 1, skipFrames):
-        print "Analyzing frame ", x + 1, "/", frame_count, " ..."
+    for x in range(0, frameCount - 1, skipFrames):
+        print "Analyzing frame ", x + 1, "/", frameCount, " ..."
 
         video_1.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, x + 1)
         (x_success, frame_x) = video_1.read()
 
-        for y in range(0, frame_count - 1, skipFrames):
+        for y in range(0, frameCount - 1, skipFrames):
             video_2.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, y + 1)
             (y_success, frame_y) = video_2.read()
 
