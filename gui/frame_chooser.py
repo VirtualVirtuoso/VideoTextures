@@ -3,7 +3,7 @@ import Tkinter
 import util.mathematics.colours as colours
 import util.video.keyframes as keyframes
 import gui.frame_compare as frame_compare
-import analysis.determine_similarities as process
+import config as config
 import os
 
 from definitions import ROOT_DIR
@@ -89,7 +89,7 @@ class ButtonGrid(Tkinter.Tk):
     def __entryhandler(self, col, row):
         print "Clicked X: ", col, "Y: ", row
 
-        inputFile = os.path.join(ROOT_DIR, process.inputPath)
+        inputFile = os.path.join(ROOT_DIR, config.inputPath)
 
         frame_1 = keyframes.get_frame(inputFile, col)
         frame_2 = keyframes.get_frame(inputFile, row)
