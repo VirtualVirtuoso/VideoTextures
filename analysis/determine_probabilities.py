@@ -1,11 +1,10 @@
 import copy
 import numpy
 import math
+import config
 from gui.frame_chooser import create_matrix_visualization
 
 from matplotlib import pyplot as plt
-
-threshold_value = 0.85
 
 
 
@@ -19,7 +18,7 @@ def main():
 
     # Find the probabilities, threshold them, and then save them to a file
     prob_matrix = create_probability_matrix(distance_matrix)
-    thresholded_matrix = threshold_matrix(copy.copy(prob_matrix), threshold_value)
+    thresholded_matrix = threshold_matrix(copy.copy(prob_matrix), config.thresholdValue)
     numpy.savetxt("../data/output/thresholded_matrix.csv", thresholded_matrix, delimiter=",")
 
     create_visualisations(prob_matrix, thresholded_matrix)
@@ -39,7 +38,7 @@ def create_visualisations(prob_matrix, thresholded_matrix):
     show_matrix_gui(grayscale_prob_matrix, "Distance Matrix")
 
     # Show the thresholded matrix
-    threshold_title = "Thresholded at: ", threshold_value
+    threshold_title = "Thresholded at: ", config.thresholdValue
     show_matrix_gui(grayscale_thresholded_matrix, threshold_title)
 
     plt.imshow(grayscale_prob_matrix, interpolation='nearest')
