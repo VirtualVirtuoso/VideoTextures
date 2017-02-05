@@ -3,8 +3,12 @@ import Tkinter
 import util.mathematics.colours as colours
 import util.video.keyframes as keyframes
 import gui.frame_compare as frame_compare
+import config as config
+import os
 
-font = ("Arial", 10, "bold italic")
+from definitions import ROOT_DIR
+
+font = ("Arial", config.fontSize, "bold italic")
 
 class LabelWidget(Tkinter.Entry):
 
@@ -24,7 +28,7 @@ class LabelWidget(Tkinter.Entry):
                     fg="#ffffff",
                     readonlybackground="#000000",
                     justify='center',
-                    width=4,
+                    width=config.cellWidth,
                     textvariable=self.text,
                     state="readonly")
         self.grid(column=x, row=y)
@@ -38,7 +42,7 @@ class ButtonWidget(Tkinter.Button):
         r, g, b = colours.rgb(0, 255, value)
         self.color = colours.rgb_to_hex(r, g, b)
         self.config(textvariable=self.value,
-                    width=3,
+                    width=config.cellWidth,
                     relief="ridge",
                     font=font,
                     bg=self.color,
@@ -56,6 +60,7 @@ class ButtonGrid(Tkinter.Tk):
         # Set some data points
         self.matrix = data_matrix
         (self.no_rows, self.no_cols) = data_matrix.shape
+        self.no_cols -= 1
 
         Tkinter.Tk.__init__(self)
         self.title(title)
@@ -83,8 +88,11 @@ class ButtonGrid(Tkinter.Tk):
 
     def __entryhandler(self, col, row):
         print "Clicked X: ", col, "Y: ", row
-        frame_1 = keyframes.get_frame("data/shorter.mov", col)
-        frame_2 = keyframes.get_frame("data/shorter.mov", row)
+
+        inputFile = os.path.join(ROOT_DIR, config.inputPath)
+
+        frame_1 = keyframes.get_frame(inputFile, col)
+        frame_2 = keyframes.get_frame(inputFile, row)
         frame_compare.compare_frames(frame_1, frame_2)
 
     def make_header(self):

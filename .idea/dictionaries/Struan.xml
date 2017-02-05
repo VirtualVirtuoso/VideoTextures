@@ -2,6 +2,7 @@
   <dictionary name="Struan">
     <words>
       <w>grayscale</w>
+      <w>thresholded</w>
     </words>
   </dictionary>
 </component>
