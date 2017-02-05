@@ -3,6 +3,8 @@ import numpy
 import util.video.keyframes as keyframes
 import util.frame.compare as compare
 import config as config
+import definitions as definitions
+import os
 
 frameCount = 0
 
@@ -11,7 +13,8 @@ frameCount = 0
 # probabilities and threshold in the next step.
 def main():
     print "Determining similarities between frames..."
-    build_similarity_matrix(config.inputPath)
+    input = os.path.join(definitions.ROOT_DIR, config.inputPath)
+    build_similarity_matrix(input)
 
 def build_similarity_matrix(video):
 
