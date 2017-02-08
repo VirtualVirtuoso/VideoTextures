@@ -14,8 +14,8 @@ frameCount = 0
 def main():
     print "OpenCV version :  {0}".format(cv2.__version__)
     print "Determining similarities between frames..."
-    input = os.path.join(definitions.ROOT_DIR, config.inputPath)
-    build_similarity_matrix(input)
+    input_matrix = os.path.join(definitions.ROOT_DIR, config.inputPath)
+    build_similarity_matrix(input_matrix)
 
 def build_similarity_matrix(video):
 

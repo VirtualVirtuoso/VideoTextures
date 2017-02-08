@@ -2,11 +2,10 @@ import copy
 import numpy
 import math
 import config
+
 from gui.frame_chooser import create_matrix_visualization
-
 from matplotlib import pyplot as plt
-
-
+import util.mathematics.matrix as matrix
 
 # The purpose of this script is to take the existing similarity matrix, and then determine
 # a thresholded probability of whether or not a jump should happen. We then save this to a
@@ -14,15 +13,15 @@ from matplotlib import pyplot as plt
 def main():
 
     # Load the distance matrix from the file
-    distance_matrix = load_matrix_from_file("../data/output/difference_matrix.csv")
+    distance_matrix = matrix.load_matrix_from_file("../data/output/future_cost_matrix.csv")
 
     # Find the probabilities, threshold them, and then save them to a file
     prob_matrix = create_probability_matrix(distance_matrix)
-    thresholded_matrix = threshold_matrix(copy.copy(prob_matrix), config.thresholdValue)
+
+    thresholded_matrix = matrix.threshold_matrix(copy.copy(prob_matrix), config.thresholdValue)
     numpy.savetxt("../data/output/thresholded_matrix.csv", thresholded_matrix, delimiter=",")
 
     create_visualisations(prob_matrix, thresholded_matrix)
-
 
 
 # This is for the purposes of visualising the matrices produced by this stage. This is
@@ -53,7 +52,7 @@ def create_visualisations(prob_matrix, thresholded_matrix):
 def create_probability_matrix(distance_matrix):
 
     # Here, sigma is the mean * 6
-    sigma = float(distance_matrix.mean()) * 6
+    sigma = float(distance_matrix.mean()) * config.sigmaMult
     (height, width) = distance_matrix.shape
 
     # Initialise the matrix
@@ -67,29 +66,6 @@ def create_probability_matrix(distance_matrix):
     return prob_matrix
 
 
-
-# Here we take the probability matrix, and threshold it against a certain value.
-def threshold_matrix(matrix, threshold):
-    thresholded_matrix = matrix
-    low_value_indices = thresholded_matrix < threshold
-    thresholded_matrix[low_value_indices] = 0
-    return thresholded_matrix
-
-def normalize_by_rows(matrix):
-    (height, width) = matrix.shape
-    normalized_matrix = numpy.zeros((height, width))
-
-    for x in range(0, height):
-        row = matrix[x]
-        euclidean_dist = numpy.atleast_1d(numpy.linalg.norm(row, 2, -1))
-        euclidean_dist[euclidean_dist == 0] = 1
-        normalized_matrix[x] = row / numpy.expand_dims(euclidean_dist, -1)
-
-    return normalized_matrix
-
-def load_matrix_from_file(file_name):
-    matrix = numpy.loadtxt(open(file_name, "rb"), delimiter=",")
-    return matrix
 
 def show_matrix_gui(matrix, title):
     create_matrix_visualization(matrix, title)
