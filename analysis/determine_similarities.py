@@ -12,6 +12,7 @@ frameCount = 0
 # each frame of the video. We then store this in a matrix, which we can then turn into
 # probabilities and threshold in the next step.
 def main():
+    print "OpenCV version :  {0}".format(cv2.__version__)
     print "Determining similarities between frames..."
     input = os.path.join(definitions.ROOT_DIR, config.inputPath)
     build_similarity_matrix(input)
@@ -47,7 +48,7 @@ def build_similarity_matrix(video):
 
     # Save this to a file, so we can process the results later
     print "Saved output to 'data/output/difference_matrix.csv'... "
-    numpy.savetxt("data/output/difference_matrix.csv", sim_matrix, delimiter=",")
+    numpy.savetxt("../data/output/difference_matrix.csv", sim_matrix, delimiter=",")
 
     return sim_matrix
 
