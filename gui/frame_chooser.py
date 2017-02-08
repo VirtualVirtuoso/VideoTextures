@@ -31,11 +31,11 @@ class LabelWidget(Tkinter.Entry):
                     width=config.cellWidth,
                     textvariable=self.text,
                     state="readonly")
-        self.grid(column=x, row=y)
+        self.grid(column=y, row=x)
 
 class ButtonWidget(Tkinter.Button):
 
-    def __init__(self, master, x, y, value):
+    def __init__(self, master, x, y, value, matrix):
         Tkinter.Button.__init__(self, master=master)
         self.value = Tkinter.StringVar()
 
@@ -48,8 +48,8 @@ class ButtonWidget(Tkinter.Button):
                     bg=self.color,
                     fg="#000000000",
                     justify='center')
-        self.grid(column=x,
-                  row=y)
+        self.grid(column=y,
+                  row=x)
         self.value.set("{0:.1f}".format(value))
 
 class ButtonGrid(Tkinter.Tk):
@@ -77,7 +77,7 @@ class ButtonGrid(Tkinter.Tk):
         # Create the grid
         for i in range(1, self.no_cols + 1):
             for j in range(1, self.no_rows + 1):
-                w = ButtonWidget(self.mainFrame, i, j + 1, self.matrix.item((i - 1, j - 1)))
+                w = ButtonWidget(self.mainFrame, i, j, self.matrix.item((i - 1, j - 1)), self.matrix)
                 self.gridDict[(i - 1, j)] = w.value
 
                 def handler(event, col=i, row=j):
@@ -103,8 +103,8 @@ class ButtonGrid(Tkinter.Tk):
             w = LabelWidget(self.mainFrame, i, 0, i)
             self.hdrDict[(i, 0)] = w
 
-        for i in range(1, self.no_cols + 1):
-            w = LabelWidget(self.mainFrame, 0, i + 1, i)
+        for i in range(1, self.no_cols + 2):
+            w = LabelWidget(self.mainFrame, 0, i, i)
             self.hdrDict[(0, i + 1)] = w
 
 def create_matrix_visualization(matrix, title):
