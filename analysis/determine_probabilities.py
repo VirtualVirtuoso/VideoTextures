@@ -5,6 +5,7 @@ import config
 
 from gui.frame_chooser import create_matrix_visualization
 from matplotlib import pyplot as plt
+
 import util.mathematics.matrix as matrix
 
 # The purpose of this script is to take the existing similarity matrix, and then determine
@@ -18,31 +19,24 @@ def main():
     # Find the probabilities, threshold them, and then save them to a file
     prob_matrix = create_probability_matrix(distance_matrix)
 
-    thresholded_matrix = matrix.threshold_matrix(copy.copy(prob_matrix), config.thresholdValue)
-    numpy.savetxt("../data/output/thresholded_matrix.csv", thresholded_matrix, delimiter=",")
+    numpy.savetxt("../data/output/probability_matrix.csv", prob_matrix, delimiter=",")
 
-    create_visualisations(prob_matrix, thresholded_matrix)
+    create_visualisations(prob_matrix)
 
 
 # This is for the purposes of visualising the matrices produced by this stage. This is
 # useful because it both allows far easier debugging, but also acts as a visual aid for
 # demonstrating this system
-def create_visualisations(prob_matrix, thresholded_matrix):
+def create_visualisations(prob_matrix):
 
     # Map probabilities to gray pixels
     grayscale_prob_matrix = prob_matrix * 255
-    grayscale_thresholded_matrix = thresholded_matrix * 255
 
     # Show the normal distance matrix
     show_matrix_gui(grayscale_prob_matrix, "Distance Matrix")
 
-    # Show the thresholded matrix
-    threshold_title = "Thresholded at: ", config.thresholdValue
-    show_matrix_gui(grayscale_thresholded_matrix, threshold_title)
-
     plt.imshow(grayscale_prob_matrix, interpolation='nearest')
     plt.show(block=False)
-
 
 
 # The paper suggests mapping the distances determined earlier to probabilities using
@@ -67,8 +61,8 @@ def create_probability_matrix(distance_matrix):
 
 
 
-def show_matrix_gui(matrix, title):
-    create_matrix_visualization(matrix, title)
+def show_matrix_gui(displayed_matrix, title):
+    create_matrix_visualization(displayed_matrix, title)
 
 if __name__ == "__main__":
     main()
