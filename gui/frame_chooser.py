@@ -50,7 +50,7 @@ class ButtonWidget(Tkinter.Button):
                     justify='center')
         self.grid(column=y,
                   row=x)
-        self.value.set("{0:.1f}".format(value))
+        self.value.set("{0:.2f}".format(value / 255.0))
 
 class ButtonGrid(Tkinter.Tk):
 
