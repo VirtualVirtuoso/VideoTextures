@@ -33,10 +33,7 @@ def create_visualisations(prob_matrix):
     grayscale_prob_matrix = prob_matrix * 255
 
     # Show the normal distance matrix
-    show_matrix_gui(grayscale_prob_matrix, "Distance Matrix")
-
-    plt.imshow(grayscale_prob_matrix, interpolation='nearest')
-    plt.show(block=False)
+    show_matrix_gui(grayscale_prob_matrix, "Probabilities Matrix")
 
 
 # The paper suggests mapping the distances determined earlier to probabilities using
