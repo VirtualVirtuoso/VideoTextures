@@ -14,3 +14,15 @@ def get_frame(video, frame_no):
 
     (success, frame) = cap.read()
     return frame
+
+def source_video(path_of_video):
+    cap = cv2.VideoCapture(path_of_video)
+
+    while not cap.isOpened():
+        cap = cv2.VideoCapture(path_of_video)
+        cv2.waitKey(1000)
+        print "Loading video..."
+
+    position_frame = cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES)
+
+    return cap, position_frame
