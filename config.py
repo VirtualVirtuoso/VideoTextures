@@ -16,3 +16,6 @@ thresholdValue = 0.995
 # Future Cost
 qualityTradeOff = 10
 futureCostWeight = 0.998
+strictFuture = False  # If we hit a dead-end, do we terminate?
+
+

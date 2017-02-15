@@ -8,8 +8,8 @@ from gui.frame_chooser import create_matrix_visualization
 
 def main():
 
-    distance_matrix = matrix_util.load_matrix_from_file("../data/output/difference_matrix.csv")
-    future_cost_matrix = generate_future_cost_matrix(distance_matrix)
+    probability_matrix = matrix_util.load_matrix_from_file("../data/output/probability_matrix.csv")
+    future_cost_matrix = generate_future_cost_matrix(probability_matrix)
     numpy.savetxt("../data/output/future_cost_matrix.csv", future_cost_matrix, delimiter=",")
 
     future_title = "Generated Future Costs"
@@ -25,9 +25,10 @@ def generate_future_cost_matrix(distance_matrix):
     future_cost_matrix = numpy.zeros((height, width))
     last_matrix = numpy.zeros((height, width))
 
-    for i in range(0, height - 1):
-        for j in range(0, width - 1):
+    for i in range(0, height):
+        for j in range(0, width):
             future_cost_matrix[i][j] = math.pow(distance_matrix[i][j], config.qualityTradeOff)
+
     while True:
 
         for i in range(0, height - 1):

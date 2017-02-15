@@ -4,16 +4,13 @@ import config as c
 import definitions as d
 import util.video.keyframes as kf
 
-import util.mathematics.matrix as matrix
-import util.mathematics.weighted_choice as frame_chooser
+from random import randint
 
 def main():
 
     (cap, position_frame) = kf.source_video(c.absInputPath)
-    frame_probabilities = matrix.load_matrix_from_file("../data/output/thresholded_matrix.csv")
-    choice_labels = frame_chooser.generate_choices(frame_probabilities)
 
-    window_name = d.random_play
+    window_name = d.basic_random_play
     cv2.namedWindow(window_name, cv2.WINDOW_OPENGL)
     cv2.startWindowThread()
 
@@ -27,7 +24,7 @@ def main():
             print d.frame_not_ready
             cv2.waitKey(1000)
 
-        next_frame = find_random_frame(cap, frame_probabilities, choice_labels)
+        next_frame = find_random_frame(cap)
         cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, next_frame)
         cv2.waitKey(50)
 
@@ -41,9 +38,11 @@ def main():
             cv2.destroyAllWindows()
             break
 
-def find_random_frame(cap, matrix, choice_labels):
-    frame_num = cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES)
-    return frame_chooser.choose_frame(matrix, choice_labels, frame_num)
+
+
+
+def find_random_frame(cap):
+    return randint(0, cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
 
 if __name__ == "__main__":
     main()
