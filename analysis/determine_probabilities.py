@@ -4,7 +4,6 @@ import math
 import config
 
 from gui.frame_chooser import create_matrix_visualization
-from matplotlib import pyplot as plt
 
 import util.mathematics.matrix as matrix
 
