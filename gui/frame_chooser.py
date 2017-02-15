@@ -8,7 +8,7 @@ import os
 
 from definitions import ROOT_DIR
 
-font = ("Arial", config.fontSize, "bold italic")
+font = ("Arial", config.fontSize, "bold")
 
 class LabelWidget(Tkinter.Entry):
 
@@ -28,7 +28,7 @@ class LabelWidget(Tkinter.Entry):
                     fg="#ffffff",
                     readonlybackground="#000000",
                     justify='center',
-                    width=config.cellWidth,
+                    width=config.cellWidth + 2,
                     textvariable=self.text,
                     state="readonly")
         self.grid(column=y, row=x)
@@ -43,7 +43,7 @@ class ButtonWidget(Tkinter.Button):
         self.color = colours.rgb_to_hex(r, g, b)
         self.config(textvariable=self.value,
                     width=config.cellWidth,
-                    relief="ridge",
+                    relief="flat",
                     font=font,
                     bg=self.color,
                     fg="#000000000",
