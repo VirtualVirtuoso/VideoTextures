@@ -4,35 +4,18 @@ import config as c
 
 from gui.frame_chooser import create_matrix_visualization
 
-import util.mathematics.matrix as matrix
+import util.mathematics.matrix as matrix_util
 
 # The purpose of this script is to take the existing similarity matrix, and then determine
 # a thresholded probability of whether or not a jump should happen. We then save this to a
 # file which is then read by the synthesis
 def main():
-
-    # Load the distance matrix from the file
-    distance_matrix = matrix.load_matrix_from_file("../data/output/future_cost_matrix.csv")
-
-    # Find the probabilities, threshold them, and then save them to a file
+    distance_matrix = matrix_util.load_matrix("../data/output/future_cost_matrix.csv")
     prob_matrix = create_probability_matrix(distance_matrix)
-
-    numpy.savetxt("../data/output/probability_matrix.csv", prob_matrix, delimiter=",")
+    matrix_util.save_matrix(prob_matrix, "probability_matrix")
 
     if c.displayVisualisations:
-        create_visualisations(prob_matrix)
-
-
-# This is for the purposes of visualising the matrices produced by this stage. This is
-# useful because it both allows far easier debugging, but also acts as a visual aid for
-# demonstrating this system
-def create_visualisations(prob_matrix):
-
-    # Map probabilities to gray pixels
-    grayscale_prob_matrix = prob_matrix * 255
-
-    # Show the normal distance matrix
-    show_matrix_gui(grayscale_prob_matrix, "Probabilities Matrix")
+        matrix_util.display_matrix(prob_matrix, "Determined Probabilities")
 
 
 # The paper suggests mapping the distances determined earlier to probabilities using

@@ -10,7 +10,7 @@ import util.mathematics.weighted_choice as frame_chooser
 def main():
 
     (cap, position_frame) = kf.source_video(c.absInputPath)
-    frame_probabilities = matrix.load_matrix_from_file("../data/output/thresholded_matrix.csv")
+    frame_probabilities = matrix.load_matrix("../data/output/thresholded_matrix.csv")
     choice_labels = frame_chooser.generate_choices(frame_probabilities)
 
     window_name = d.random_play

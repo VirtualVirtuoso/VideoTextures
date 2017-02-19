@@ -4,21 +4,14 @@ import math
 import config as c
 import util.mathematics.matrix as matrix_util
 
-from gui.frame_chooser import create_matrix_visualization
 
 def main():
-
-    probability_matrix = matrix_util.load_matrix_from_file("../data/output/probability_matrix.csv")
+    probability_matrix = matrix_util.load_matrix("../data/output/probability_matrix.csv")
     future_cost_matrix = generate_future_cost_matrix(probability_matrix)
-    numpy.savetxt("../data/output/future_cost_matrix.csv", future_cost_matrix, delimiter=",")
-
-    future_title = "Generated Future Costs"
-
-    future_cost_matrix /= numpy.max(numpy.abs(future_cost_matrix), axis=0)
-    future_cost_matrix *= 255.0
+    matrix_util.save_matrix(future_cost_matrix, "future_cost_matrix")
 
     if c.displayVisualisations:
-        create_matrix_visualization(future_cost_matrix, future_title)
+        matrix_util.display_matrix(future_cost_matrix, "Generated Future Costs")
 
 
 def generate_future_cost_matrix(distance_matrix):

@@ -1,4 +1,5 @@
 import numpy
+from gui.frame_chooser import create_matrix_visualization
 
 def threshold_matrix(matrix, threshold):
     thresholded_matrix = matrix
@@ -18,6 +19,15 @@ def normalize_by_rows(matrix):
 
     return normalized_matrix
 
-def load_matrix_from_file(file_name):
+def load_matrix(file_name):
     matrix = numpy.loadtxt(open(file_name, "rb"), delimiter=",")
     return matrix
+
+def save_matrix(matrix, name):
+    path = "../data/output/" + name + ".csv"
+    numpy.savetxt(path, matrix, delimiter=",")
+
+def display_matrix(matrix, title):
+    matrix /= numpy.max(numpy.abs(matrix), axis=0)
+    matrix *= 255.0
+    create_matrix_visualization(matrix, title)
