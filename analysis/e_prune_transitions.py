@@ -4,7 +4,7 @@ import util.mathematics.matrix as matrix_util
 import config as c
 
 def main():
-    future_matrix = matrix_util.load_matrix("../data/output/future_cost_matrix.csv")
+    future_matrix = matrix_util.load_matrix("../data/output/probability_matrix.csv")
     thresholded_matrix = matrix_util.threshold_matrix(copy.copy(future_matrix), c.thresholdValue)
     matrix_util.save_matrix(thresholded_matrix, "thresholded_matrix")
 
