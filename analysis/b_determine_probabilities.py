@@ -1,7 +1,6 @@
-import copy
 import numpy
 import math
-import config
+import config as c
 
 from gui.frame_chooser import create_matrix_visualization
 
@@ -20,7 +19,8 @@ def main():
 
     numpy.savetxt("../data/output/probability_matrix.csv", prob_matrix, delimiter=",")
 
-    create_visualisations(prob_matrix)
+    if c.displayVisualisations:
+        create_visualisations(prob_matrix)
 
 
 # This is for the purposes of visualising the matrices produced by this stage. This is
@@ -42,7 +42,7 @@ def create_visualisations(prob_matrix):
 def create_probability_matrix(distance_matrix):
 
     # Here, sigma is the mean * 6
-    sigma = float(distance_matrix.mean()) * config.sigmaMult
+    sigma = float(distance_matrix.mean()) * c.sigmaMult
     (height, width) = distance_matrix.shape
 
     # Initialise the matrix
