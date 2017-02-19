@@ -7,6 +7,7 @@ absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\clock.mov
 sigmaMult = 2
 
 # GUI
+displayVisualisations = True
 cellWidth = 2
 fontSize = 6
 
