@@ -8,3 +8,28 @@ def rgb(minimum, maximum, value):
     r = int(max(0, 255 * (ratio - 1)))
     g = 255 - b - r
     return r, g, b
+
+def island_rgb(minimum, maximum, value):
+    minimum, maximum = float(minimum), float(maximum)
+    ratio = 2 * (value - minimum) / (maximum - minimum)
+
+    if ratio < 0.1:
+        return 1, 2, 50
+    elif ratio < 0.2:
+        return 1, 146, 199
+    elif ratio < 0.3:
+        return 241, 222, 119
+    elif ratio < 0.4:
+        return 155, 188, 47
+    elif ratio < 0.5:
+        return 80, 142, 7
+    elif ratio < 0.6:
+        return 26, 109, 3
+    elif ratio < 0.7:
+        return 48, 142, 92
+    elif ratio < 0.8:
+        return 169, 170, 126
+    elif ratio < 0.9:
+        return 135, 107, 44
+    else:
+        return 255, 255, 255

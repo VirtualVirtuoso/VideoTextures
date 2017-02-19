@@ -10,6 +10,7 @@ sigmaMult = 2
 displayVisualisations = True
 cellWidth = 2
 fontSize = 6
+islandColouring = True
 
 # Thresholding
 thresholdValue = 0.995
