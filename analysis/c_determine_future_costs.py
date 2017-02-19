@@ -6,7 +6,7 @@ import util.mathematics.matrix as matrix_util
 
 
 def main():
-    probability_matrix = matrix_util.load_matrix("../data/output/probability_matrix.csv")
+    probability_matrix = matrix_util.load_matrix("../data/output/difference_matrix.csv")
     future_cost_matrix = generate_future_cost_matrix(probability_matrix)
     matrix_util.save_matrix(future_cost_matrix, "future_cost_matrix")
 
