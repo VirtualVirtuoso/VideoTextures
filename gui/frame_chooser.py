@@ -66,7 +66,6 @@ class ButtonGrid(Tkinter.Tk):
         # Set some data points
         self.matrix = data_matrix
         (self.no_rows, self.no_cols) = data_matrix.shape
-        self.no_cols -= 1
 
         Tkinter.Tk.__init__(self)
         self.title(title)
@@ -109,7 +108,7 @@ class ButtonGrid(Tkinter.Tk):
             w = LabelWidget(self.mainFrame, i, 0, i)
             self.hdrDict[(i, 0)] = w
 
-        for i in range(1, self.no_cols + 2):
+        for i in range(1, self.no_cols + 1):
             w = LabelWidget(self.mainFrame, 0, i, i)
             self.hdrDict[(0, i + 1)] = w
 
