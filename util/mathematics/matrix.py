@@ -28,6 +28,8 @@ def save_matrix(matrix, name):
     numpy.savetxt(path, matrix, delimiter=",")
 
 def display_matrix(matrix, title):
-    matrix /= numpy.max(numpy.abs(matrix), axis=0)
+    matrix_max = numpy.max(numpy.abs(matrix))
+    if matrix_max > 0:
+        matrix /= matrix_max
     matrix *= 255.0
     create_matrix_visualization(matrix, title)
