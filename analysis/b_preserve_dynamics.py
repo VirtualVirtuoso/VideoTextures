@@ -1,5 +1,4 @@
 import numpy
-import math
 
 import config as c
 import definitions as d
@@ -21,6 +20,8 @@ def preserve_dynamics(matrix):
 
     for i in range(0, height):
         for j in range(0, width):
+            if j == 0:
+                print str(i) + " " + str(j) + " " + str(weighted_window(matrix, i, j, adjacent_frames))
             dynamic_matrix[i][j] = weighted_window(matrix, i, j, adjacent_frames)
 
     return dynamic_matrix
@@ -28,12 +29,14 @@ def preserve_dynamics(matrix):
 def weighted_window(matrix, i, j, m):
     (height, width) = matrix.shape
     cum_prob = 0.0
+    start = -m
+    end = m - 1
 
-    for k in range(-m, m - 1):
+    for k in range(-m, m):
         i_index = i + k
         j_index = j + k
 
-        if (0 < i_index < width - 1) and (0 < j_index < height - 1):
+        if (0 <= i_index < width - 1) and (0 <= j_index < height - 1):
             current_term = get_weight(m, k) * float(matrix[i + k][j + k])
             cum_prob += current_term
 
