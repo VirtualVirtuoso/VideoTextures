@@ -43,6 +43,8 @@ def main():
 
 def find_random_frame(cap, matrix, choice_labels):
     frame_num = cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES)
+
+    # TODO: This shouldn't be necessary if the row is normalised
     return frame_chooser.choose_frame(matrix, choice_labels, frame_num)
 
 if __name__ == "__main__":

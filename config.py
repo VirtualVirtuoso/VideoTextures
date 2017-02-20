@@ -2,7 +2,7 @@ import os
 
 # Similarities
 skipFrames = 1
-inputFile = "clock.mov"
+inputFile = "clock-hands.mov"
 inputPath = "data/input/" + inputFile
 absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inputFile
 
@@ -22,8 +22,8 @@ colouringType = "Gray"  # Island, Rainbow or Gray
 thresholdValue = 0.9
 
 # Future Cost
-qualityTradeOff = 2
-futureCostWeight = 0.999
+qualityExponent = 2
+futureCostAlpha = 0.9
 strictFuture = False  # If we hit a dead-end, do we terminate?
 
 
