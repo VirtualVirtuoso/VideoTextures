@@ -39,10 +39,12 @@ class ButtonWidget(Tkinter.Button):
         Tkinter.Button.__init__(self, master=master)
         self.value = Tkinter.StringVar()
 
-        if config.islandColouring:
+        if config.colouringType == "Island":
             r, g, b = colours.island_rgb(0, 255, value)
-        else:
+        elif config.colouringType == "Rainbow":
             r, g, b = colours.rgb(0, 255, value)
+        else:
+            r, g, b = colours.grayscale_rgb(0, 255, value)
 
         self.color = colours.rgb_to_hex(r, g, b)
         self.config(textvariable=self.value,
