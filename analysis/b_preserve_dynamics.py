@@ -14,31 +14,27 @@ def main():
         matrix_util.display_matrix(dynamic_matrix, "Dynamic Preserved Matrix")
 
 def preserve_dynamics(matrix):
-    adjacent_frames = c.adjacentFrames
+    a = c.adjacentFrames
     (height, width) = matrix.shape
-    dynamic_matrix = numpy.zeros((height, width))
 
-    for i in range(0, height):
-        for j in range(0, width):
-            if j == 0:
-                print str(i) + " " + str(j) + " " + str(weighted_window(matrix, i, j, adjacent_frames))
-            dynamic_matrix[i][j] = weighted_window(matrix, i, j, adjacent_frames)
+    start = 0 + a
+    end = height - a
+    size = height - (2 * a)
+
+    dynamic_matrix = numpy.zeros((size, size))
+
+    for i in range(start, end):
+        for j in range(start, end):
+            dynamic_matrix[i - a][j - a] = weighted_window(matrix, i, j, a)
 
     return dynamic_matrix
 
 def weighted_window(matrix, i, j, m):
-    (height, width) = matrix.shape
     cum_prob = 0.0
-    start = -m
-    end = m - 1
 
     for k in range(-m, m):
-        i_index = i + k
-        j_index = j + k
-
-        if (0 <= i_index < width - 1) and (0 <= j_index < height - 1):
-            current_term = get_weight(m, k) * float(matrix[i + k][j + k])
-            cum_prob += current_term
+        current_term = get_weight(m, k) * float(matrix[i + k][j + k])
+        cum_prob += current_term
 
     return cum_prob
 
