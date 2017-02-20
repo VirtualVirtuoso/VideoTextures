@@ -10,7 +10,12 @@ import util.mathematics.matrix as matrix_util
 # a thresholded probability of whether or not a jump should happen. We then save this to a
 # file which is then read by the synthesis
 def main():
-    distance_matrix = matrix_util.load_matrix("../data/output/future_cost_matrix.csv")
+
+    if c.skipFutureCosts:
+        distance_matrix = matrix_util.load_matrix("../data/output/dynamic_matrix.csv")
+    else:
+        distance_matrix = matrix_util.load_matrix("../data/output/future_cost_matrix.csv")
+
     prob_matrix = create_probability_matrix(distance_matrix)
     matrix_util.save_matrix(prob_matrix, "probability_matrix")
 

@@ -10,9 +10,7 @@ def rgb(minimum, maximum, value):
     return r, g, b
 
 def grayscale_rgb(minimum, maximum, value):
-    minimum, maximum = float(minimum), float(maximum)
-    ratio = (value - minimum) / (maximum - minimum)
-    return (255 * ratio), (255 * ratio), (255 * ratio)
+    return value, value, value
 
 def island_rgb(minimum, maximum, value):
     minimum, maximum = float(minimum), float(maximum)
