@@ -6,11 +6,14 @@ absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\clock.mov
 # Probabilities
 sigmaMult = 2
 
+# Preserving dynamics
+adjacentFrames = 3
+
 # GUI
 displayVisualisations = True
 cellWidth = 2
 fontSize = 6
-islandColouring = True
+islandColouring = False
 
 # Thresholding
 thresholdValue = 0.995
