@@ -24,9 +24,9 @@ def generate_future_cost_matrix(dynamic_matrix):
     last_matrix = numpy.zeros((height, width))
 
     # We initialise with D''ij = (D'ij)^p
-    for i in range(0, height):
+    for i in range(1, height):
         for j in range(0, width):
-            future_cost_matrix[i][j] = math.pow(dynamic_matrix[i][j], c.qualityExponent)
+            future_cost_matrix[i][j] = math.pow(dynamic_matrix[i-1][j], c.qualityExponent)
 
     # Continue until an iteration does not change the matrix
     while True:

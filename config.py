@@ -1,5 +1,3 @@
-import os
-
 # Similarities
 skipFrames = 1
 inputFile = "clock-hands.mov"
@@ -8,7 +6,7 @@ absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inpu
 
 # Probabilities
 sigmaMult = 2
-skipFutureCosts = True
+skipFutureCosts = False
 
 # Preserving dynamics
 adjacentFrames = 2
@@ -17,14 +15,14 @@ adjacentFrames = 2
 displayVisualisations = True
 cellWidth = 2
 fontSize = 6
-colouringType = "Gray"  # Island, Rainbow or Gray
+colouringType = "Rainbow"  # Island, Rainbow or Gray
 
 # Thresholding
-thresholdValue = 0.78
+thresholdValue = 0.9
 
 # Future Cost
 qualityExponent = 2
-futureCostAlpha = 0.9
+futureCostAlpha = 0.995
 strictFuture = False  # If we hit a dead-end, do we terminate?
 
 
