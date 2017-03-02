@@ -19,6 +19,8 @@ colouringType = "Rainbow"  # Island, Rainbow or Gray
 
 # Thresholding
 thresholdValue = 0.9
+useLocalMaxima = True
+useThreshold = True
 
 # Future Cost
 qualityExponent = 2
