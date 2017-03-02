@@ -2,7 +2,9 @@
   <dictionary name="Struan">
     <words>
       <w>grayscale</w>
+      <w>maxima</w>
       <w>thresholded</w>
+      <w>thresholding</w>
     </words>
   </dictionary>
 </component>
