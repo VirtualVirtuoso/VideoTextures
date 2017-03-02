@@ -1,6 +1,7 @@
 import Tkinter
 
 import util.mathematics.colours as colours
+import util.mathematics.plot_row as plot
 import util.video.keyframes as keyframes
 import gui.frame_compare as frame_compare
 import config as config
@@ -86,12 +87,12 @@ class ButtonGrid(Tkinter.Tk):
                 self.gridDict[(i - 1, j)] = w.value
 
                 def handler(event, col=i, row=j):
-                    return self.__entryhandler(col, row)
+                    return self.grid_button_handler(col, row)
 
                 w.bind(sequence="<Button>", func=handler)
         self.mainloop()
 
-    def __entryhandler(self, col, row):
+    def grid_button_handler(self, col, row):
         print "Clicked X: ", col, "Y: ", row
 
         inputFile = os.path.join(ROOT_DIR, config.inputPath)
@@ -100,18 +101,51 @@ class ButtonGrid(Tkinter.Tk):
         frame_2 = keyframes.get_frame(inputFile, row)
         frame_compare.compare_frames(frame_1, frame_2)
 
+    def label_handler(self, row):
+        print "Clicked Row: " + str(row)
+        matrix = self.matrix
+        plot.plot_matrix_row(matrix, row)
+
     def make_header(self):
 
         self.hdrDict = {}
 
         for i in range(0, self.no_cols + 1):
-            w = LabelWidget(self.mainFrame, i, 0, i)
+            w = Tkinter.Button(self.mainFrame,
+                               text=i,
+                               width=config.cellWidth,
+                               relief="flat",
+                               font=font,
+                               bg="#000000",
+                               fg="#ffffff",
+                               justify='center')
+            w.grid(row=0, column=i, sticky="W")
             self.hdrDict[(i, 0)] = w
 
+            # def handler(event, row=i):
+            #     return self.label_handler(row)
+            #
+            # w.bind(sequence="<Button>", func=handler)
+
+
         for i in range(1, self.no_cols + 1):
-            w = LabelWidget(self.mainFrame, 0, i, i)
+            w = Tkinter.Button(self.mainFrame,
+                               text=i,
+                               width=config.cellWidth,
+                               relief="flat",
+                               font=font,
+                               bg="#000000",
+                               fg="#ffffff",
+                               justify='center')
+            w.grid(row=i, column=0, sticky="W")
             self.hdrDict[(0, i + 1)] = w
+
+            def handler(event, row=i):
+                return self.label_handler(row)
+
+            w.bind(sequence="<Button>", func=handler)
 
 def create_matrix_visualization(matrix, title):
     demo_matrix = matrix
     app = ButtonGrid(demo_matrix, title)
+
