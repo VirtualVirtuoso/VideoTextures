@@ -27,4 +27,5 @@ qualityExponent = 2
 futureCostAlpha = 0.995
 strictFuture = False  # If we hit a dead-end, do we terminate?
 
-
+# Video Loops
+maxCompoundDistance = 100
