@@ -6,9 +6,9 @@ import util.mathematics.matrix as matrix_util
 
 def main():
 
-    probability_matrix = matrix_util.load_matrix("../data/output/difference_matrix.csv")
+    probability_matrix = matrix_util.load_matrix("differences")
     dynamic_matrix = preserve_dynamics(probability_matrix)
-    matrix_util.save_matrix(dynamic_matrix, "dynamic_matrix")
+    matrix_util.save_matrix(dynamic_matrix, "dynamics")
 
     if c.displayVisualisations:
         matrix_util.display_matrix(dynamic_matrix, "Dynamic Preserved Matrix")

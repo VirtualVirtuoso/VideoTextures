@@ -6,9 +6,9 @@ import util.mathematics.matrix as matrix_util
 
 
 def main():
-    dynamic_matrix = matrix_util.load_matrix("../data/output/dynamic_matrix.csv")
+    dynamic_matrix = matrix_util.load_matrix("dynamics")
     future_cost_matrix = generate_future_cost_matrix(dynamic_matrix)
-    matrix_util.save_matrix(future_cost_matrix, "future_cost_matrix")
+    matrix_util.save_matrix(future_cost_matrix, "futurecosts")
 
     if c.displayVisualisations:
         matrix_util.display_matrix(future_cost_matrix, "Generated Future Costs")
