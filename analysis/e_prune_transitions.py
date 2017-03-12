@@ -7,7 +7,7 @@ import config as c
 from scipy.signal import argrelextrema
 
 def main():
-    future_matrix = matrix_util.load_matrix("../data/output/probability_matrix.csv")
+    future_matrix = matrix_util.load_matrix("probabilities")
     threshold_title = "Not thresholded..."
 
     # Determine Local Maxima
@@ -23,7 +23,7 @@ def main():
         else:
             threshold_title = "Thresholded at " + str(c.thresholdValue)
 
-    matrix_util.save_matrix(future_matrix, "thresholded_matrix")
+    matrix_util.save_matrix(future_matrix, "thresholds")
 
     if c.displayVisualisations:
         matrix_util.display_matrix(future_matrix, threshold_title)

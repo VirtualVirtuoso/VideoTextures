@@ -166,7 +166,7 @@ class MainApplication(tk.Frame):
         self.informedRandomEnabled = False
         self.videoLoopsEnabled = False
 
-        config.inputFile = "Hello!"
+        config.inputName = "Hello!"
 
         self.dynButtons.config(bg=getColour(self.dynamicsEnabled), state=getEnabled(self.dynamicsEnabled))
         self.futButtons.config(bg=getColour(self.futureCostsEnabled), state=getEnabled(self.futureCostsEnabled))

@@ -12,12 +12,12 @@ import util.mathematics.matrix as matrix_util
 def main():
 
     if c.skipFutureCosts:
-        distance_matrix = matrix_util.load_matrix("../data/output/dynamic_matrix.csv")
+        distance_matrix = matrix_util.load_matrix("dynamics")
     else:
-        distance_matrix = matrix_util.load_matrix("../data/output/future_cost_matrix.csv")
+        distance_matrix = matrix_util.load_matrix("futurecosts")
 
     prob_matrix = create_probability_matrix(distance_matrix)
-    matrix_util.save_matrix(prob_matrix, "probability_matrix")
+    matrix_util.save_matrix(prob_matrix, "probabilities")
 
     if c.displayVisualisations:
         matrix_util.display_matrix(prob_matrix, "Determined Probabilities")

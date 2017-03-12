@@ -23,7 +23,7 @@ def main():
 
     # Save this to a file, so we can process the results later
     print "Saved output to 'data/output/difference_matrix.csv'... "
-    matrix_util.save_matrix(diff_matrix, "difference_matrix")
+    matrix_util.save_matrix(diff_matrix, "differences")
 
     if c.displayVisualisations:
         matrix_util.display_matrix(diff_matrix, "Difference Matrix")
