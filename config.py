@@ -1,8 +1,8 @@
 # Similarities
-skipFrames = 1
-inputFile = "clock-hands.mov"
-inputPath = "data/input/" + inputFile
-absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inputFile
+skipFrames = 2
+inputName = "mothecombe"
+inputPath = "data/input/" + inputName + ".mov"
+absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inputName
 
 # Probabilities
 sigmaMult = 2
