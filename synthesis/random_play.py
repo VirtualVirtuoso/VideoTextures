@@ -6,6 +6,7 @@ import util.video.keyframes as kf
 
 import util.mathematics.matrix as matrix
 import util.mathematics.weighted_choice as frame_chooser
+import config as c
 
 def main():
 
@@ -16,6 +17,9 @@ def main():
     window_name = d.random_play
     cv2.namedWindow(window_name, cv2.WINDOW_OPENGL)
     cv2.startWindowThread()
+    frameskip = c.skipFrames
+    preserve_jump = frameskip
+    next_frame = 0
 
     while True:
         flag, frame = cap.read()
@@ -27,7 +31,13 @@ def main():
             print d.frame_not_ready
             cv2.waitKey(1000)
 
-        next_frame = find_random_frame(cap, frame_probabilities, choice_labels)
+        if preserve_jump == 0:
+            next_frame = find_random_frame(cap, frame_probabilities, choice_labels)
+            preserve_jump = frameskip
+        else:
+            next_frame += 1
+            preserve_jump -= 1
+
         cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, next_frame)
         cv2.waitKey(50)
 
@@ -45,7 +55,7 @@ def find_random_frame(cap, matrix, choice_labels):
     frame_num = cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES)
 
     # TODO: This shouldn't be necessary if the row is normalised
-    return frame_chooser.choose_frame(matrix, choice_labels, frame_num)
+    return frame_chooser.choose_frame(matrix, choice_labels, frame_num * c.skipFrames)
 
 if __name__ == "__main__":
     main()

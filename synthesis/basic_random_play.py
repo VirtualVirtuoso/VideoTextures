@@ -26,7 +26,7 @@ def main():
 
         next_frame = find_random_frame(cap)
         cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, next_frame)
-        cv2.waitKey(50)
+        cv2.waitKey(80)
 
         # Terminate the program if ESC is pressed
         if cv2.waitKey(10) == 27:
