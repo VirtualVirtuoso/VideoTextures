@@ -1,6 +1,36 @@
+# =====================================================================
+# INTERESTING PARAMETERS
+# =====================================================================
+
+# Input {cars, clock-hands, clouds, manchester, mothecombe, row}
+inputName = "clock-hands" 
+
 # Similarities
 skipFrames = 1
-inputName = "clock-hands"
+matrixBuffer = -1 # If using skipframes, should be 1, else -1
+
+# Future Costs
+qualityExponent = 2
+
+# Thresholding
+thresholdValue = 0.73 # Lower will allow more transitions
+useLocalMaxima = True
+useThreshold = True
+
+# Preserving dynamics
+adjacentFrames = 2
+
+# GUI
+colouringType = "Rainbow"  # Island, Rainbow or Gray
+
+# Video Loops
+buildTable = False  # Unfortunately not working right now
+
+# =====================================================================
+# INTERNAL PARAMETERS
+# =====================================================================
+
+# Similarities
 inputPath = "data/input/" + inputName + ".mov"
 absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inputName + ".mov"
 
@@ -8,24 +38,14 @@ absInputPath = "C:\Users\Struan\PycharmProjects\TestProject\data\input\\" + inpu
 sigmaMult = 2
 skipFutureCosts = False
 
-# Preserving dynamics
-adjacentFrames = 2
+# Future Cost
+futureCostAlpha = 0.995
+strictFuture = False  # If we hit a dead-end, do we terminate?
 
 # GUI
 displayVisualisations = True
 cellWidth = 2
 fontSize = 6
-colouringType = "Rainbow"  # Island, Rainbow or Gray
-
-# Thresholding
-thresholdValue = 0.73
-useLocalMaxima = True
-useThreshold = True
-
-# Future Cost
-qualityExponent = 2
-futureCostAlpha = 0.995
-strictFuture = False  # If we hit a dead-end, do we terminate?
 
 # Video Loops
 maxCompoundDistance = 100

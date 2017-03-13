@@ -2,6 +2,7 @@ from Tkinter import *
 import Tkinter as tk
 import subprocess as sub
 import config
+import definitions as d
 import os
 
 def getColour(boolType):
@@ -253,7 +254,20 @@ class MainApplication(tk.Frame):
         self.pack()
         self.createWidgets()
 
+def display_welcome_message():
+    print d.spacer + " __     ___     _              _____         _                       "
+    print d.spacer + " \ \   / (_) __| | ___  ___   |_   _|____  _| |_ _   _ _ __ ___  ___ "
+    print d.spacer + "  \ \ / /| |/ _` |/ _ \/ _ \    | |/ _ \ \/ / __| | | | '__/ _ \/ __|"
+    print d.spacer + "   \ V / | | (_| |  __/ (_) |   | |  __/>  <| |_| |_| | | |  __/\__ \\"
+    print d.spacer + "    \_/  |_|\__,_|\___|\___/    |_|\___/_/\_\\\\__|\__,_|_|  \___||___/"
+    print d.spacer + "                                                                     "
+    print d.spacer + "                     --  STRUAN MCDONOUGH 2017  --                   "
+    print d.spacer + "http://cpl.cc.gatech.edu/projects/videotexture/SIGGRAPH2000/index.htm"
+    print d.spacer + "                                 -- --                               "
+    print ""
+
 if __name__ == "__main__":
+    display_welcome_message()
     sub.Popen("C:/Program Files (x86)/Notepad++/notepad++.exe")
     root = Tk()
     app = MainApplication(root)

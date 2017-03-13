@@ -8,12 +8,14 @@ import util.mathematics.loop_overlap as overlap
 MAX_INT = 2147483647
 
 def main():
-    threshold_matrix = matrix.load_matrix("../data/output/thresholded_matrix.csv")
-    cost_matrix = matrix.load_matrix("../data/output/dynamic_matrix.csv")
+    threshold_matrix = matrix.load_matrix("thresholds")
+    cost_matrix = matrix.load_matrix("dynamics")
 
     loops = find_loops(threshold_matrix, cost_matrix)
     dg.plot_loops(loops)
-    # build_transition_table(loops)
+
+    if c.buildTable:
+        build_transition_table(loops)
 
 def build_transition_table(loops):
     # A loop has the structure:

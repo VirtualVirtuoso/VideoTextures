@@ -42,8 +42,8 @@ def build_difference_matrix(video):
     print ""
 
     # Instantiate the matrix in which we will determine the similarities
-    height = (frame_count / c.skipFrames) + 1
-    width = (frame_count / c.skipFrames) + 1
+    height = (frame_count / c.skipFrames) + c.matrixBuffer
+    width = (frame_count / c.skipFrames) + c.matrixBuffer
     sim_matrix = numpy.zeros((height, width))
 
     # Go through each of the frames, and find their similarity with others
