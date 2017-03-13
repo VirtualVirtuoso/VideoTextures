@@ -18,7 +18,7 @@ fontSize = 6
 colouringType = "Rainbow"  # Island, Rainbow or Gray
 
 # Thresholding
-thresholdValue = 0.9
+thresholdValue = 0.73
 useLocalMaxima = True
 useThreshold = True
 

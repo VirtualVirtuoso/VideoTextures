@@ -22,12 +22,12 @@ def normalize_by_rows(matrix):
     return normalized_matrix
 
 def load_matrix(matrix_type):
-    path = "../data/output/" + matrix_type + "/" + c.inputName + ".csv"
+    path = "C:/Users/Struan/PycharmProjects/TestProject/data/output/" + matrix_type + "/" + c.inputName + ".csv"
     matrix = numpy.loadtxt(open(path, "rb"), delimiter=",")
     return matrix
 
 def save_matrix(matrix, matrix_type):
-    path = "../data/output/" + matrix_type + "/" + c.inputName + ".csv"
+    path = "C:/Users/Struan/PycharmProjects/TestProject/data/output/" + matrix_type + "/" + c.inputName + ".csv"
     numpy.savetxt(path, matrix, delimiter=",")
 
 def display_matrix(matrix, title):

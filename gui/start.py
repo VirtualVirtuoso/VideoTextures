@@ -2,6 +2,7 @@ from Tkinter import *
 import Tkinter as tk
 import subprocess as sub
 import config
+import os
 
 def getColour(boolType):
     if boolType:
@@ -27,7 +28,6 @@ class MainApplication(tk.Frame):
             padx=10,
             text="Video Textures")
 
-        self.createInputSection()
         self.createProcessSection()
         self.createGenerationSection()
 
@@ -41,24 +41,6 @@ class MainApplication(tk.Frame):
         self.basicLoopButton.pack(side=LEFT)
         self.randomButton.pack(side=LEFT)
         self.videoLoopsButton.pack(side=LEFT)
-
-    def createInputSection(self):
-        self.inputTitle = LabelFrame(self,
-            font="OpenSans 10",
-            padx=10,
-            text="Input Video")
-        self.inputTitle.grid(row=0, columnspan=7, sticky='WE',
-                 padx=5, pady=5, ipadx=5, ipady=5)
-
-        self.inFileLbl = Label(self.inputTitle, text="File Path:")
-        self.inFileLbl.grid(row=0, column=0, sticky='E', padx=5, pady=2)
-
-        self.inFileTxt = Entry(self.inputTitle)
-        self.inFileTxt.grid(row=0, column=1, columnspan=7, sticky="WE", pady=3)
-
-        self.inFileBtn = Button(self.inputTitle, text="Load", command=self.loadFile)
-        self.inFileBtn.grid(row=0, column=8, sticky='W', padx=5, pady=2)
-
 
     def createProcessSection(self):
         self.processTitle = LabelFrame(self,
@@ -177,7 +159,7 @@ class MainApplication(tk.Frame):
         Tk.update(self.master)
 
     def similaritiesClicked(self):
-        print "Similarities clicked"
+        print "Determining Distances between Frames... (Might take a while)"
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/analysis/a_determine_similarities.py', shell=True)
         self.process.wait()
@@ -186,7 +168,7 @@ class MainApplication(tk.Frame):
         self.dynButtons.config(bg=getColour(self.dynamicsEnabled), state=getEnabled(self.dynamicsEnabled))
 
     def dynamicsClicked(self):
-        print "Dynamics clicked"
+        print "Taking into account dynamics of motion..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/analysis/b_preserve_dynamics.py', shell=True)
         self.process.wait()
@@ -195,7 +177,7 @@ class MainApplication(tk.Frame):
         self.futButtons.config(bg=getColour(self.futureCostsEnabled), state=getEnabled(self.futureCostsEnabled))
 
     def futureClicked(self):
-        print "Future costs clicked"
+        print "Determining Future Costs of Transitions..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/analysis/c_determine_future_costs.py', shell=True)
         self.process.wait()
@@ -204,7 +186,7 @@ class MainApplication(tk.Frame):
         self.probButtons.config(bg=getColour(self.probabilitiesEnabled), state=getEnabled(self.probabilitiesEnabled))
 
     def probabilitiesClicked(self):
-        print "Probabilities Clicked"
+        print "Turning Costs into Probabilities..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/analysis/d_determine_probabilities.py', shell=True)
         self.process.wait()
@@ -213,7 +195,7 @@ class MainApplication(tk.Frame):
         self.pruneButtons.config(bg=getColour(self.pruneEnabled), state=getEnabled(self.pruneEnabled))
 
     def pruneClicked(self):
-        print "Prune Clicked"
+        print "Pruning Probability Matrix..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/analysis/e_prune_transitions.py', shell=True)
         self.process.wait()
@@ -224,19 +206,19 @@ class MainApplication(tk.Frame):
         self.videoLoopsButton.config(bg=getColour(self.videoLoopsEnabled), state=getEnabled(self.videoLoopsEnabled))
 
     def basicRandomClicked(self):
-        print "Basic Random Clicked"
+        print "Generating Random Video..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/synthesis/basic_random_play.py', shell=True)
         self.process.wait()
 
     def basicLoopClicked(self):
-        print "Basic Loop Clicked"
+        print "Generating Looping Video..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/synthesis/basic_loop.py', shell=True)
         self.process.wait()
 
     def informedRandomClicked(self):
-        print "Informed Random Clicked"
+        print "Generating Informed Random Video..."
 
         self.process = sub.Popen('C:/Users/Struan/PycharmProjects/TestProject/synthesis/random_play.py', shell=True)
         self.process.wait()
@@ -272,6 +254,7 @@ class MainApplication(tk.Frame):
         self.createWidgets()
 
 if __name__ == "__main__":
+    sub.Popen("C:/Program Files (x86)/Notepad++/notepad++.exe")
     root = Tk()
     app = MainApplication(root)
     app.mainloop()

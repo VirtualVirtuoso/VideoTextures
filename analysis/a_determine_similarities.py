@@ -1,6 +1,7 @@
 import cv2
 import numpy
 import os
+import math
 
 import util.video.keyframes as keyframes
 import util.frame.compare as compare
@@ -41,8 +42,8 @@ def build_difference_matrix(video):
     print ""
 
     # Instantiate the matrix in which we will determine the similarities
-    height = (frame_count / c.skipFrames) - 1
-    width = (frame_count / c.skipFrames) - 1
+    height = (frame_count / c.skipFrames) + 1
+    width = (frame_count / c.skipFrames) + 1
     sim_matrix = numpy.zeros((height, width))
 
     # Go through each of the frames, and find their similarity with others
@@ -56,8 +57,11 @@ def build_difference_matrix(video):
             video_2.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, y + 1)
             (y_success, frame_y) = video_2.read()
 
+            adjusted_x = int(math.floor(x / c.skipFrames))
+            adjusted_y = int(math.floor(y / c.skipFrames))
+
             # We make our comparison based on the Euclidean (L2) norm
-            sim_matrix[x / c.skipFrames, y / c.skipFrames] = compare.euclidean_norm(frame_x, frame_y)
+            sim_matrix[adjusted_x, adjusted_y] = compare.euclidean_norm(frame_x, frame_y)
 
 
 
