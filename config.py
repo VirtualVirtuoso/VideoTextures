@@ -3,7 +3,7 @@
 # =====================================================================
 
 # Input {cars, clock-hands, clouds, manchester, mothecombe, row}
-inputName = "clock-hands" 
+inputName = "manchester" 
 
 # Similarities
 skipFrames = 1
@@ -13,7 +13,7 @@ matrixBuffer = -1 # If using skipframes, should be 1, else -1
 qualityExponent = 2
 
 # Thresholding
-thresholdValue = 0.73 # Lower will allow more transitions
+thresholdValue = 0.9 # Lower will allow more transitions
 useLocalMaxima = True
 useThreshold = True
 
