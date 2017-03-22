@@ -1,7 +1,7 @@
 import networkx as nx
 import pylab
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Directed Graph GUI
 |-------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ import pylab
 | in circumstances where you expect there to be plenty of transitions,
 | this visualisation is of limited use.
 |
-'''
+"""
 
 def plot_loops(loops):
     G = nx.DiGraph()

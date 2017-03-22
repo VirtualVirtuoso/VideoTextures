@@ -2,6 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import argrelextrema
 
+"""
+|-------------------------------------------------------------------------------
+| Plot Row GUI Component
+|-------------------------------------------------------------------------------
+|
+| This is a GUI component which is useful for demonstrations. When facing the
+| Matrix Visualisation GUI, you can click on a row label, and it will show
+| you a line graph of the row, and beneath it, the same row with maxima
+| applied.
+|
+"""
+
+"""
+| Creates two plots, one of the magnitudes of the given row, and a second
+| of the same row with local maxima applied
+"""
 def plot_matrix_row(matrix, row):
     row_num = row
     (height, width) = matrix.shape
@@ -27,6 +43,9 @@ def plot_matrix_row(matrix, row):
     fig.canvas.set_window_title('Analysis of row ' + str(row_num))
     plt.show()
 
+"""
+| Takes a row, and removes any entry which isn't a local maxima
+"""
 def determine_maxima(row):
     processed_row = row
     maxima = argrelextrema(row, np.greater)[0]

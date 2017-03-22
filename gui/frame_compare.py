@@ -1,6 +1,14 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import ImageGrid
-import numpy as np
+
+"""
+|-------------------------------------------------------------------------------
+| Frame Compare GUI Component
+|-------------------------------------------------------------------------------
+|
+| Very basic GUI which shows two provided images side by side
+|
+"""
 
 def compare_frames(im1, im2):
 

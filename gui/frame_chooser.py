@@ -1,15 +1,27 @@
 import Tkinter
-
-import util.mathematics.colours as colours
-import util.mathematics.plot_row as plot
-import util.video.keyframes as keyframes
-import gui.frame_compare as frame_compare
-import config as config
 import os
 
+import config as config
+import gui.frame_compare as frame_compare
+import gui.plot_row as plot
+import util.mathematics.colours as colours
+import util.video.keyframes as keyframes
 from definitions import ROOT_DIR
 
 font = ("Arial", config.fontSize, "bold")
+
+"""
+|-------------------------------------------------------------------------------
+| Frame Chooser GUI Component
+|-------------------------------------------------------------------------------
+|
+| This is the Matrix Visualiser. This generates a grid representing each of the
+| possible frame transitions. Each of the grid cells is coloured based on the
+| given metric, and clicking on one of these cells will show the two frames
+| being compared. There are different colouring schemes, which can be found
+| in util.mathematics.colour.
+|
+"""
 
 class LabelWidget(Tkinter.Entry):
 
@@ -92,6 +104,9 @@ class ButtonGrid(Tkinter.Tk):
                 w.bind(sequence="<Button>", func=handler)
         self.mainloop()
 
+    """
+    | Shows the frame comparison GUI when a cell is clicked
+    """
     def grid_button_handler(self, col, row):
         print "Clicked X: ", col, "Y: ", row
 
@@ -101,11 +116,17 @@ class ButtonGrid(Tkinter.Tk):
         frame_2 = keyframes.get_frame(inputFile, row)
         frame_compare.compare_frames(frame_1, frame_2)
 
+    """
+    | Shows the local maxima and magnitude plots when the labels are clicked
+    """
     def label_handler(self, row):
         print "Clicked Row: " + str(row)
         matrix = self.matrix
         plot.plot_matrix_row(matrix, row)
 
+    """
+    | Generates the matrix row and column labels when initialising
+    """
     def make_header(self):
 
         self.hdrDict = {}
@@ -121,12 +142,6 @@ class ButtonGrid(Tkinter.Tk):
                                justify='center')
             w.grid(row=0, column=i, sticky="W")
             self.hdrDict[(i, 0)] = w
-
-            # def handler(event, row=i):
-            #     return self.label_handler(row)
-            #
-            # w.bind(sequence="<Button>", func=handler)
-
 
         for i in range(1, self.no_cols + 1):
             w = Tkinter.Button(self.mainFrame,
@@ -145,6 +160,9 @@ class ButtonGrid(Tkinter.Tk):
 
             w.bind(sequence="<Button>", func=handler)
 
+"""
+| External callable function to generate the grid for the given matrix
+"""
 def create_matrix_visualization(matrix, title):
     demo_matrix = matrix
     app = ButtonGrid(demo_matrix, title)

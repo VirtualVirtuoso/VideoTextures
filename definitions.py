@@ -23,6 +23,19 @@ basic_random_play = "Unstructured Random Play Execution"
 basic_loop_play = "Unstructured Loop Execution"
 loop_play = "Standard Loop Execution"
 
+# Analysis Launch Messages
+similarities_clicked = "Determining Distances between Frames... (Might take a while)"
+dynamics_clicked = "Taking into account dynamics of motion..."
+future_clicked = "Determining Future Costs of Transitions..."
+probabilities_clicked = "Turning Costs into Probabilities..."
+prune_clicked = "Pruning Probability Matrix..."
+
+# Synthesis Launch Messages
+basic_random_clicked = "Generating Random Video..."
+basic_loop_clicked = "Generating Looping Video..."
+informed_random_clicked = "Generating Informed Random Video..."
+video_loops_clicked = "Generating Video Loops..."
+
 # Error strings
 frame_not_ready = "Frame is not ready"
 
