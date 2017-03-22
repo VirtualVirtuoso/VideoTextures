@@ -1,6 +1,17 @@
 import networkx as nx
 import pylab
 
+'''
+|-------------------------------------------------------------------------------
+| Directed Graph GUI
+|-------------------------------------------------------------------------------
+|
+| This visualises the transitions found in a digraph. It uses a library which
+| isn't particularly good at visualising graphs which plenty of nodes, so
+| in circumstances where you expect there to be plenty of transitions,
+| this visualisation is of limited use.
+|
+'''
 
 def plot_loops(loops):
     G = nx.DiGraph()
@@ -25,12 +36,15 @@ def plot_loops(loops):
         G.add_edges_from([(str(node_values[i]), str(node_values[i + 1]))], weight=weight)
         trivial_edges.append((str(node_values[i]), str(node_values[i + 1])))
 
+    # Set the edges to be green if going forwards, and red if going backwards
     edge_colours = ['red' if not edge in trivial_edges else 'green'
                     for edge in G.edges()]
-    values = [val_map.get(node, 0.45) for node in G.nodes()]
+
+    # Label the edges with the frame distance of the transition
     edge_labels = dict([((u, v,), d['weight'])
                         for u, v, d in G.edges(data=True)])
 
+    # Use the graph library to output the visualisation
     pos = nx.circular_layout(G)
     node_labels = {node: node for node in G.nodes()}
     nx.draw_networkx_labels(G, pos, labels=node_labels)

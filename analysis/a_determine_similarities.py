@@ -9,26 +9,43 @@ import config as c
 import definitions as d
 import util.mathematics.matrix as matrix_util
 
-# This is the first pre-processing step we use to determine the similarities between
-# each frame of the video. We then store this in a matrix, which we can then turn into
-# probabilities and threshold in the next step.
+'''
+|-------------------------------------------------------------------------------
+| Determining Similarities
+|-------------------------------------------------------------------------------
+|
+| This is the first pre-processing step we use to determine the similarities
+| between each frame of the video. We then store this result in a matrix,
+| which is needed for further computations while determining feasible
+| transitions between frames.
+|
+'''
+
 def main():
-    print d.bar_line
+
+    print d.BAR_LINE
     print "OpenCV version :  {0}".format(cv2.__version__)
-    print d.bar_line
-    print ""
+    print d.BAR_LINE
+    print d.EMPTY_LINE
     print "Determining similarities between frames..."
 
-    input_matrix = os.path.join(d.ROOT_DIR, c.inputPath)
-    diff_matrix = build_difference_matrix(input_matrix)
+    # Find the input path for the video, and build the difference matrix
+    input_video_path = os.path.join(d.ROOT_DIR, c.inputPath)
+    diff_matrix = build_difference_matrix(input_video_path)
 
     # Save this to a file, so we can process the results later
     print "Saved output to 'data/output/difference_matrix.csv'... "
     matrix_util.save_matrix(diff_matrix, "differences")
 
+    # Optional visualisation for the matrix using the built in GUI
     if c.displayVisualisations:
         matrix_util.display_matrix(diff_matrix, "Difference Matrix")
 
+'''
+| This function takes an input video, and then compares each of the frames against every
+| other frame. It considers each frame a two dimensional array, and then determines the
+| Euclidean distance between the frames.
+'''
 def build_difference_matrix(video):
 
     # We create two video objects, each of which will scan one frame
@@ -62,8 +79,6 @@ def build_difference_matrix(video):
 
             # We make our comparison based on the Euclidean (L2) norm
             sim_matrix[adjusted_x, adjusted_y] = compare.euclidean_norm(frame_x, frame_y)
-
-
 
     return sim_matrix
 

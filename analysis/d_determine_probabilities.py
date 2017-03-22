@@ -2,15 +2,23 @@ import numpy
 import math
 import config as c
 
-from gui.frame_chooser import create_matrix_visualization
-
 import util.mathematics.matrix as matrix_util
 
-# The purpose of this script is to take the existing similarity matrix, and then determine
-# a thresholded probability of whether or not a jump should happen. We then save this to a
-# file which is then read by the synthesis
+'''
+|-------------------------------------------------------------------------------
+| Determining Probabilities
+|-------------------------------------------------------------------------------
+|
+| Arguably the most simple step, we map the distances found to probabilities.
+| At this stage, we don't normalise the matrix, however this occurs later
+| the process when we're loading the videos
+|
+'''
+
 def main():
 
+    # Config option which allows us to skip the future cost processing. Useful for comparing
+    # results
     if c.skipFutureCosts:
         distance_matrix = matrix_util.load_matrix("dynamics")
     else:
@@ -22,11 +30,12 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(prob_matrix, "Determined Probabilities")
 
-
-# The paper suggests mapping the distances determined earlier to probabilities using
-# the exponential function, in particular P_{ij} \propto exp(-D_{i+1,j}/\sigma)
-# Here, sigma is defined to be a mapping constant, which is suggested to be a small
-# multiple of the average D_{ij} values
+'''
+| The paper suggests mapping the distances determined earlier to probabilities using
+| the exponential function, in particular P_{ij} \propto exp(-D_{i+1,j}/\sigma)
+| Here, sigma is defined to be a mapping constant, which is suggested to be a small
+| multiple of the average D_{ij} values
+'''
 def create_probability_matrix(distance_matrix):
 
     # Here, sigma is the mean * 6
@@ -42,11 +51,6 @@ def create_probability_matrix(distance_matrix):
             prob_matrix[x][y] = math.exp((-distance_matrix[x + 1][y]) / sigma)
 
     return prob_matrix
-
-
-
-def show_matrix_gui(displayed_matrix, title):
-    create_matrix_visualization(displayed_matrix, title)
 
 if __name__ == "__main__":
     main()

@@ -36,3 +36,17 @@ def display_matrix(matrix, title):
         matrix /= matrix_max
     matrix *= 255.0
     create_matrix_visualization(matrix, title)
+
+'''
+| Finds the smallest element in a given row
+'''
+def find_row_minimum(matrix, row):
+    (height, width) = matrix.shape
+    row_min = matrix[row][0]
+
+    for k in range(0, width - 1):
+        if matrix[row][k] < row_min:
+            row_min = matrix[row][k]
+
+    return row_min
+

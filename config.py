@@ -7,7 +7,7 @@ inputName = "manchester"
 
 # Similarities
 skipFrames = 1
-matrixBuffer = -1 # If using skipframes, should be 1, else -1
+matrixBuffer = -1  # If using skipframes, should be 1, else -1
 
 # Future Costs
 qualityExponent = 2
