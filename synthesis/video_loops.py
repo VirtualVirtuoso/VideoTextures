@@ -1,6 +1,7 @@
 import config as c
 import numpy as np
 import gui.directed_graph as dg
+import util.mathematics.matrix as matrix_util
 
 import util.mathematics.matrix as matrix
 import util.mathematics.loop_overlap as overlap
@@ -12,10 +13,11 @@ def main():
     cost_matrix = matrix.load_matrix("dynamics")
 
     loops = find_loops(threshold_matrix, cost_matrix)
-    dg.plot_loops(loops)
+    # dg.plot_loops(loops)
 
     if c.buildTable:
-        build_transition_table(loops)
+        table = build_transition_table(loops)
+        matrix_util.save_matrix(table, "loops")
 
 def build_transition_table(loops):
     # A loop has the structure:
@@ -30,7 +32,7 @@ def build_transition_table(loops):
     # The transition table is a cube, where the first two dimensions are transition vs
     # maximum compound loop. The third dimension is from, to and cost respectively.
     # We instantiate this transition table here
-    tt = np.zeros(L, N, (L * 2) + 1)
+    tt = np.empty((L, N, (L * 2)))
 
     # Create the first row of the table
     for cell in range(0, N):
@@ -40,17 +42,20 @@ def build_transition_table(loops):
 
     # Generate the remaining rows of the table
     for i in range(1, L):
+        print i
         for j in range(0, N):
             column = [row[j] for row in tt]
+            column_len = len(column)
             min_cost = MAX_INT
             min_found_col = -1
             min_found_row = -1
             min_row = -1
 
             # Go from the cell up through the column until the top
-            for k in range(len(column), 0, -1):
-                compound_loop = tt[k][j][1:]
-                compound_loop = np.reshape(compound_loop, (2, len(compound_loop) / 2))
+            for k in range(column_len - 1, -1, -1):
+                compound_loop = tt[k][j][0:]
+                temp_len = len(compound_loop)
+                compound_loop = np.reshape(compound_loop, (2, temp_len / 2))
                 compound_loop_cost = tt[k][j][0]
                 compound_loop_len = sum(compound_loop[1][:] - compound_loop[0][:])
 
@@ -79,7 +84,12 @@ def build_transition_table(loops):
 
                 for m in range(0, N):
                     if overlap.check_loop_overlap(loops[m], compound_loop):
-                        matched_len = i - compound_loop_len
+                        if abs(compound_loop_len) > i:
+                            # print "OOPS: " + str(compound_loop_len)
+                            matched_len = i
+                        else:
+                            matched_len = int(i - abs(compound_loop_len))
+
                         matched_cost = tt[matched_len][m][0]
                         total_cost = matched_cost + compound_loop_cost
 
@@ -91,22 +101,28 @@ def build_transition_table(loops):
 
 
             if min_found_col != -1:
-                matched_loop = tt[min_found_row][min_found_col][1:]
+                matched_loop = tt[min_found_row][min_found_col][0:]
                 matched_loop_len = len(matched_loop)
                 matched_loop = np.reshape(matched_loop, (1, matched_loop_len))
                 base_loop = tt[min_row][j][1:]
 
                 tt[i][j][0] = tt[min_found_row][min_found_col][0] + tt[min_row][j][0]
-                base_loop_len = len(np.nonzero(base_loop))
+                base_loop_non_zero = np.nonzero(base_loop)[0]
+                base_loop_non_zero_size = len(base_loop_non_zero)
 
                 np.reshape(np.nonzero(base_loop), (2, len(np.nonzero(base_loop)) / 2))
-                np.reshape(matched_loop, (2, len(tt[i][j][1:]) / 2))
+                new_height = matched_loop.shape[1] / 2
+                np.reshape(matched_loop, (2, new_height))
 
-                new_loop = [np.nonzero(base_loop), matched_loop[0:len(matched_loop) - base_loop_len]]
-                tt[i][j][1:] = np.reshape(new_loop, (1, 1, len(new_loop)))
+                new_loop = np.array([base_loop_non_zero, matched_loop[0:new_height - base_loop_non_zero_size][0]])
+                something = np.array(new_loop[1:])
+
+                tt[i][j][:] = something[0]
 
     for i in range(0, L):
         print tt[i]
+
+    return tt
 
 def find_loops(threshold_matrix, weight_matrix):
     (height, width) = threshold_matrix.shape

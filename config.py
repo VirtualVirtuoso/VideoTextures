@@ -24,7 +24,7 @@ adjacentFrames = 2
 colouringType = "Rainbow"  # Island, Rainbow or Gray
 
 # Video Loops
-buildTable = False  # Unfortunately not working right now
+buildTable = True  # Unfortunately not working right now
 
 # =====================================================================
 # INTERNAL PARAMETERS
@@ -48,4 +48,4 @@ cellWidth = 2
 fontSize = 6
 
 # Video Loops
-maxCompoundDistance = 100
+maxCompoundDistance = 10
