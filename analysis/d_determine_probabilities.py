@@ -4,7 +4,7 @@ import config as c
 
 import util.mathematics.matrix as matrix_util
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Determining Probabilities
 |-------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import util.mathematics.matrix as matrix_util
 | At this stage, we don't normalise the matrix, however this occurs later
 | the process when we're loading the videos
 |
-'''
+"""
 
 def main():
 
@@ -30,12 +30,12 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(prob_matrix, "Determined Probabilities")
 
-'''
+"""
 | The paper suggests mapping the distances determined earlier to probabilities using
 | the exponential function, in particular P_{ij} \propto exp(-D_{i+1,j}/\sigma)
 | Here, sigma is defined to be a mapping constant, which is suggested to be a small
 | multiple of the average D_{ij} values
-'''
+"""
 def create_probability_matrix(distance_matrix):
 
     # Here, sigma is the mean * 6

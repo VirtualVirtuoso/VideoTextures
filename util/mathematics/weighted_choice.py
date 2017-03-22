@@ -3,23 +3,33 @@ import numpy
 
 import config as c
 
-def main():
+"""
+|-------------------------------------------------------------------------------
+| Weighted Choice Utility
+|-------------------------------------------------------------------------------
+|
+| This utility allows us to take a matrix, and make weighted choices over its
+| normalised entries
+|
+"""
 
-    choices = numpy.matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-
-    choice_labels = generate_choices(choices)
-
-    chosen_frame = choose_frame(choices, choice_labels, 1)
-    print chosen_frame
-
-
+"""
+| Given the matrix of choices, and a given frame, returns a choice for which
+| frame will be displayed next, based on the transition probabilities
+"""
 def choose_frame(choices, choice_labels, frame_number):
     distribution = determine_distribution(choices, frame_number)
     return weighted_choices(choice_labels, distribution)
 
+"""
+|
+"""
 def weighted_choices(choice_entries, normalized_entries):
     return choice(choice_entries, 1, p=normalized_entries)
 
+"""
+|
+"""
 def generate_choices(matrix):
 
     (height, width) = matrix.shape
@@ -30,6 +40,10 @@ def generate_choices(matrix):
 
     return choices[0, :]
 
+"""
+| Takes a frame, and finds the probability distribution for the available
+| transitions
+"""
 def determine_distribution(matrix, frame):
 
     (height, width) = matrix.shape
@@ -45,6 +59,9 @@ def determine_distribution(matrix, frame):
 
     return normalized_row
 
+"""
+| Takes a row, and ensures that the union of all probabilities is 1
+"""
 def normalize_row(row):
     width = row.size
 
@@ -66,7 +83,4 @@ def normalize_row(row):
 
 
     return normalized_row[0, :]
-
-if __name__ == "__main__":
-    main()
 

@@ -6,10 +6,22 @@ import util.video.keyframes as kf
 
 from random import randint
 
+"""
+|-------------------------------------------------------------------------------
+| Basic Random Play
+|-------------------------------------------------------------------------------
+|
+| Here, at any given frame, we choose the next frame randomly. This is used
+| to contrast against the informed implementation given in random play
+|
+"""
+
 def main():
 
+    # Load the video and the frame we're currently at
     (cap, position_frame) = kf.source_video(c.absInputPath)
 
+    # Create an output window to display the video
     window_name = d.basic_random_play
     cv2.namedWindow(window_name, cv2.WINDOW_OPENGL)
     cv2.startWindowThread()
@@ -24,6 +36,7 @@ def main():
             print d.frame_not_ready
             cv2.waitKey(1000)
 
+        # Keep choosing random frames to render
         next_frame = find_random_frame(cap)
         cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, next_frame)
         cv2.waitKey(80)
@@ -38,9 +51,9 @@ def main():
             cv2.destroyAllWindows()
             break
 
-
-
-
+"""
+| Choose a random frame between 0 and the total number of frames in the video
+"""
 def find_random_frame(cap):
     return randint(0, cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
 

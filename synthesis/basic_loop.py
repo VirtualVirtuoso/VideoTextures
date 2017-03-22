@@ -4,15 +4,27 @@ import config as c
 import definitions as d
 import util.video.keyframes as kf
 
+"""
+|-------------------------------------------------------------------------------
+| Basic Loop
+|-------------------------------------------------------------------------------
+|
+| This is the most trivial execution. Once you reach the end of the video, you
+| begin back at the beginning. This is similar to the gif image format.
+|
+"""
 
 def main():
 
+    # Load the video and the frame we're currently at
     (cap, position_frame) = kf.source_video(c.absInputPath)
 
+    # Generate the output window
     window_name = d.basic_loop_play
     cv2.namedWindow(window_name, cv2.WINDOW_OPENGL)
     cv2.startWindowThread()
 
+    # Keep reading the frames, and outputting them
     while True:
         flag, frame = cap.read()
 
@@ -34,6 +46,7 @@ def main():
             cv2.destroyAllWindows()
             break
 
+        # If we get to the end of the video, start again from the beginning
         if cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES) == cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT):
             cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, 0)
 

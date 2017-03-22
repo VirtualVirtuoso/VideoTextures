@@ -6,7 +6,7 @@ import config as c
 
 from scipy.signal import argrelextrema
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Pruning Transitions
 |-------------------------------------------------------------------------------
@@ -17,7 +17,7 @@ from scipy.signal import argrelextrema
 | and finding local maxima (so we don't have multiple indistinguish-
 | able transitions).
 |
-'''
+"""
 
 def main():
     future_matrix = matrix_util.load_matrix("probabilities")
@@ -41,10 +41,10 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(future_matrix, threshold_title)
 
-'''
+"""
 | Very simple process which ensures that we only select the peaks of the distribution
 | of probabilities, hence removing similar transitions.
-'''
+"""
 def determine_local_maxima(matrix):
     thresholded_matrix = matrix
     (height, width) = matrix.shape

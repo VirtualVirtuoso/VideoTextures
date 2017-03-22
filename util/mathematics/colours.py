@@ -1,6 +1,26 @@
+"""
+|-------------------------------------------------------------------------------
+| Colour Utility
+|-------------------------------------------------------------------------------
+|
+| This utility provides the colour scales for the visualisations. There are
+| currently three options:
+|
+| 1: RGB - This gives a scale from blue to red, with red being a higher value
+| 2: GRAYSCALE - This gives a scale from black to white, with white being higher
+| 3: ISLAND - For a bit of fun, displays the matrix as a terrain heightmap
+|
+"""
+
+"""
+| Takes a RGB code, and turns it into a hex, which can then be read by the GUI
+"""
 def rgb_to_hex(r, g, b):
     return '#%02x%02x%02x' % (r, g, b)
 
+"""
+| The RGB colour scale
+"""
 def rgb(minimum, maximum, value):
     minimum, maximum = float(minimum), float(maximum)
     ratio = 2 * (value - minimum) / (maximum - minimum)
@@ -9,13 +29,20 @@ def rgb(minimum, maximum, value):
     g = 255 - b - r
     return r, g, b
 
+"""
+| The GRAYSCALE colour scale
+"""
 def grayscale_rgb(minimum, maximum, value):
     return value, value, value
 
+"""
+| The ISLAND colour scale
+"""
 def island_rgb(minimum, maximum, value):
     minimum, maximum = float(minimum), float(maximum)
     ratio = (value - minimum) / (maximum - minimum)
 
+    # Yep, it looks horrible!
     if ratio < 0.1:
         return 1, 101, 199
     elif ratio < 0.2:

@@ -1,8 +1,17 @@
 import numpy as np
 import numpy.matlib
 
-# Primitive Loop is a [to, from]
-# Compound loop is [from, to]
+"""
+|-------------------------------------------------------------------------------
+| Loop Overlap Utility
+|-------------------------------------------------------------------------------
+|
+| Given two loop structures, checks to see if they overlap. The loops will
+| always be a compound loop and a primitive loop. This is required during
+| the Video Loop algorithm
+|
+"""
+
 def check_loop_overlap(primitive_loop, compound_loop):
     compound_start = np.nonzero(compound_loop[0][:])
     compound_end = np.nonzero(compound_loop[1][:])

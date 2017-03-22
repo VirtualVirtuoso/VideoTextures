@@ -1,14 +1,14 @@
 import os
 import numpy as np
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Definitions
 |-------------------------------------------------------------------------------
 |
 | Here we define reusable constants which shouldn't be changed by the end user
 |
-'''
+"""
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,3 +34,5 @@ BINOMIAL_DISTRIBUTION = np.matrix(
      [0.0, 0.125, 0.375, 0.375, 0.125, 0.0],
      [0.03125, 0.15625, 0.3125, 0.3125, 0.15625, 0.03125]]
 )
+
+MAX_INT = 2147483647

@@ -1,24 +1,41 @@
-import config as c
-import numpy as np
 import gui.directed_graph as dg
 import util.mathematics.matrix as matrix_util
 
 import util.mathematics.matrix as matrix
 import util.mathematics.loop_overlap as overlap
 
-MAX_INT = 2147483647
+import config as c
+import numpy as np
+import definitions as d
+
+'''
+|-------------------------------------------------------------------------------
+| Video Loops
+|-------------------------------------------------------------------------------
+|
+| This is a dynamic programming technique which aims to identify primitive loops
+| and compound loops within the transition tables. This then provides a means to
+| pick chains of loops which can then be executed. We also provide a visuali-
+| sation which shows the transitions in the form of a digraph
+|
+'''
 
 def main():
     threshold_matrix = matrix.load_matrix("thresholds")
     cost_matrix = matrix.load_matrix("dynamics")
 
-    loops = find_loops(threshold_matrix, cost_matrix)
-    # dg.plot_loops(loops)
+    loops = find_transitions(threshold_matrix, cost_matrix)
+    dg.plot_loops(loops)
 
     if c.buildTable:
         table = build_transition_table(loops)
         matrix_util.save_matrix(table, "loops")
 
+"""
+| Here we build up a table of possible transition loops. Each of the entries
+| lists the best compound loop of a given length. We can then choose entries
+| from this table to produce looping transitions
+"""
 def build_transition_table(loops):
     # A loop has the structure:
     # 0 - From
@@ -46,7 +63,7 @@ def build_transition_table(loops):
         for j in range(0, N):
             column = [row[j] for row in tt]
             column_len = len(column)
-            min_cost = MAX_INT
+            min_cost = d.MAX_INT
             min_found_col = -1
             min_found_row = -1
             min_row = -1
@@ -124,7 +141,10 @@ def build_transition_table(loops):
 
     return tt
 
-def find_loops(threshold_matrix, weight_matrix):
+"""
+| Read the transitions from the transition matrix into a list we can use
+"""
+def find_transitions(threshold_matrix, weight_matrix):
     (height, width) = threshold_matrix.shape
     loops = []
 
@@ -132,10 +152,6 @@ def find_loops(threshold_matrix, weight_matrix):
         for j in range(1, i):
             if threshold_matrix[i][j] != 0:
                 loops.append([i, j, abs(i - j), weight_matrix[i][j]])
-
-    # for i in range(0, len(loops)):
-    #     print "Loop " + str(i + 1) + "\tStart: " + str(loops[i][0]) + "\tEnd: " \
-    #           + str(loops[i][1]) + "\t\tDistance: " + str(loops[i][2]) + "\tCost: " + str(loops[i][3])
 
     return loops
 

@@ -4,7 +4,7 @@ import math
 import config as c
 import util.mathematics.matrix as matrix_util
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Determining Future Costs
 |-------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ import util.mathematics.matrix as matrix_util
 | This method prevents us from becoming trapped in these small dead
 | ends, by looking into the future with basic machine learning.
 |
-'''
+"""
 
 def main():
 
@@ -27,13 +27,13 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(future_cost_matrix, "Generated Future Costs")
 
-'''
+"""
 | This function is dervied from a  method called Q-Learning. The idea corresponds
 | to finding the best path through a graph with our costs on the edges. We take
 | the costs found, and apply it to the minimum of the row in a matrix we
 | update in each iteration. The function ends when our update matrix remains
 | unchanged.
-'''
+"""
 def generate_future_cost_matrix(dynamic_matrix):
     (height, width) = dynamic_matrix.shape
 

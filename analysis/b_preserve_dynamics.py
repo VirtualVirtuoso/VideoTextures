@@ -5,7 +5,7 @@ import config as c
 import definitions as d
 import util.mathematics.matrix as matrix_util
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Preserving Dynamics
 |-------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ import util.mathematics.matrix as matrix_util
 | leave us with unnatural jumps. This process takes into account the
 | dynamics of a transition, and removes those which are unsuitable.
 |
-'''
+"""
 
 def main():
 
@@ -27,11 +27,11 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(dynamic_matrix, "Dynamic Preserved Matrix")
 
-'''
+"""
 | This function takes the difference matrix, and applies the notion of dynamics
 | preservation. When making a transition from frame a to frame b, you take a weighted
 | window of some of the neighbours of b on either side.
-'''
+"""
 def preserve_dynamics(matrix):
     num_adjacent = c.adjacentFrames
     (height, width) = matrix.shape
@@ -51,7 +51,7 @@ def preserve_dynamics(matrix):
 
     return dynamic_matrix
 
-'''
+"""
 | This finds the cumulative weight across all of the neighbours in the
 | weighted window. In terms of the matrix, it is a given number of cells
 | to the top left or bottom right.
@@ -59,7 +59,7 @@ def preserve_dynamics(matrix):
 |     □
 |       ■     Example where num_adjacent = 1
 |         □
-'''
+"""
 def weighted_window(matrix, i, j, num_adjacent):
     cum_weight = 0.0
 
@@ -69,10 +69,10 @@ def weighted_window(matrix, i, j, num_adjacent):
 
     return cum_weight
 
-'''
+"""
 | Small helper function to find the weights, using a binomial distribution (cells
 | which are closer to the source cell should be given more weight
-'''
+"""
 def get_weight(num_adjacent, cell):
     weight = num_adjacent - 1
     index = cell + 3

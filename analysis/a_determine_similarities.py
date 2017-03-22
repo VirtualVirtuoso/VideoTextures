@@ -4,12 +4,12 @@ import os
 import math
 
 import util.video.keyframes as keyframes
-import util.frame.compare as compare
+import util.frame.frame as compare
 import config as c
 import definitions as d
 import util.mathematics.matrix as matrix_util
 
-'''
+"""
 |-------------------------------------------------------------------------------
 | Determining Similarities
 |-------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ import util.mathematics.matrix as matrix_util
 | which is needed for further computations while determining feasible
 | transitions between frames.
 |
-'''
+"""
 
 def main():
 
@@ -41,11 +41,11 @@ def main():
     if c.displayVisualisations:
         matrix_util.display_matrix(diff_matrix, "Difference Matrix")
 
-'''
+"""
 | This function takes an input video, and then compares each of the frames against every
 | other frame. It considers each frame a two dimensional array, and then determines the
 | Euclidean distance between the frames.
-'''
+"""
 def build_difference_matrix(video):
 
     # We create two video objects, each of which will scan one frame
