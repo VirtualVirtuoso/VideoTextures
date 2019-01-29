@@ -7,7 +7,8 @@ This form of media is proposed to be applicable to the world of advertising, or 
 
 ### Presentation
 The following is a screencast which demonstrates the project working on real examples.
+
 [![Video Texutres](https://img.youtube.com/vi/Pt5rrjwW_1U/0.jpg)](https://www.youtube.com/watch?v=Pt5rrjwW_1U)
 
 ### Paper
-This project has an associated academic paper. This can be read as a PDF within the repository
+This project has an associated academic paper. This can be read as a [PDF within the repository](https://github.com/VirtualVirtuoso/VideoTextures/blob/master/Video%20Textures%20-%20Struan%20McDonough.pdf).
